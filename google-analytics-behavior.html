@@ -72,9 +72,9 @@ Provides a behaviors for format development
        * @see https://developers.google.com/analytics/devguides/collection/analyticsjs/linker
        */
       gaSetDomainName: function (domainName) {
-        if (!this.gaInitialized) {
-          throw new Error('Google Analytics is not initialized. Call first gaCreate()');
-        }
+//        if (!this.gaInitialized) {
+//          throw new Error('Google Analytics is not initialized. Call first gaCreate()');
+//        }
         ga('require', 'linker');
         ga('linker:autoLink', [domainName]);
       },
@@ -84,16 +84,16 @@ Provides a behaviors for format development
        * @see https://developers.google.com/analytics/devguides/collection/analyticsjs/custom-dims-mets
        */
       gaSetDimension: function (dimension, value) {
-        if (!this.gaInitialized) {
-          throw new Error('Google Analytics is not initialized. Call first gaCreate()');
-        }
+//        if (!this.gaInitialized) {
+//          throw new Error('Google Analytics is not initialized. Call first gaCreate()');
+//        }
         ga('set', dimension, value);
       },
 
       gaSend: function (options) {
-        if (!this.gaInitialized) {
-          throw new Error('Google Analytics is not initialized. Call first gaCreate()');
-        }
+//        if (!this.gaInitialized) {
+//          throw new Error('Google Analytics is not initialized. Call first gaCreate()');
+//        }
         ga('send', options);
       },
 
@@ -105,9 +105,9 @@ Provides a behaviors for format development
        * @see https://developers.google.com/analytics/devguides/collection/analyticsjs/cookies-user-id
        */
       gaSetUserId: function (userId) {
-        if (!this.gaInitialized) {
-          throw new Error('Google Analytics is not initialized. Call first gaCreate()');
-        }
+//        if (!this.gaInitialized) {
+//          throw new Error('Google Analytics is not initialized. Call first gaCreate()');
+//        }
         ga('set', 'userId', userId);
       },
 
@@ -119,9 +119,9 @@ Provides a behaviors for format development
        * @see https://developers.google.com/analytics/devguides/collection/analyticsjs/screens
        */
       gaSetAppName: function (appName) {
-        if (!this.gaInitialized) {
-          throw new Error('Google Analytics is not initialized. Call first gaCreate()');
-        }
+//        if (!this.gaInitialized) {
+//          throw new Error('Google Analytics is not initialized. Call first gaCreate()');
+//        }
         ga('set', 'appName', appName);
       },
 
@@ -131,9 +131,9 @@ Provides a behaviors for format development
        * @see https://developers.google.com/analytics/devguides/collection/analyticsjs/linker
        */
       gaTrackPageView: function (url, fieldsObject = null) {
-        if (!this.gaInitialized) {
-          throw new Error('Google Analytics is not initialized. Call first gaCreate()');
-        }
+//        if (!this.gaInitialized) {
+//          throw new Error('Google Analytics is not initialized. Call first gaCreate()');
+//        }
         ga('send', 'pageview', url, fieldsObject);
       },
 
@@ -143,9 +143,9 @@ Provides a behaviors for format development
        * @see https://developers.google.com/analytics/devguides/collection/analyticsjs/events
        */
       gaTrackEvent: function (eventCategory, eventAction, eventLabel, eventValue, fieldsObject = null) {
-        if (!this.gaInitialized) {
-          throw new Error('Google Analytics is not initialized. Call first gaCreate()');
-        }
+//        if (!this.gaInitialized) {
+//          throw new Error('Google Analytics is not initialized. Call first gaCreate()');
+//        }
         ga('send', 'event', eventCategory, eventAction, eventLabel, eventValue, fieldsObject);
       },
 
@@ -155,9 +155,9 @@ Provides a behaviors for format development
        * @see https://developers.google.com/analytics/devguides/collection/analyticsjs/social-interactions
        */
       gaTrackSocial: function (socialNetwork, socialAction, socialTarget, fieldsObject = null) {
-        if (!this.gaInitialized) {
-          throw new Error('Google Analytics is not initialized. Call first gaCreate()');
-        }
+//        if (!this.gaInitialized) {
+//          throw new Error('Google Analytics is not initialized. Call first gaCreate()');
+//        }
         ga('send', 'social', socialNetwork, socialAction, socialTarget, fieldsObject);
       },
 
@@ -168,9 +168,9 @@ Provides a behaviors for format development
        * @see https://developers.google.com/analytics/devguides/collection/analyticsjs/screens
        */
       gaScreenView: function (fieldsObject = null) {
-        if (!this.gaInitialized) {
-          throw new Error('Google Analytics is not initialized. Call first gaCreate()');
-        }
+//        if (!this.gaInitialized) {
+//          throw new Error('Google Analytics is not initialized. Call first gaCreate()');
+//        }
         ga('send', 'screenview', fieldsObject);
       },
 
