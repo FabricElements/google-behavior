@@ -142,7 +142,7 @@ Provides a behaviors for format development
        *
        * @see https://developers.google.com/analytics/devguides/collection/analyticsjs/events
        */
-      gaTrackEvent: function (eventCategory, eventAction, eventLabel, eventValue, fieldsObject = null) {
+      gaTrackEvent: function (eventCategory, eventAction, eventLabel = null , eventValue = null, fieldsObject = null) {
 //        if (!this.gaInitialized) {
 //          throw new Error('Google Analytics is not initialized. Call first gaCreate()');
 //        }
