@@ -9,25 +9,23 @@ Google behavior collection.
 -->
 
 <script>
-  (function() {
-    'use strict';
-    window.Fabric = window.Fabric || {};
+  'use strict';
+  window.Fabric = window.Fabric || {};
 
-    /**
-     Use `Polymer.GoogleBehavior` to implement an element that can be hidden or shown, and displays
-     on top of other content. It includes an optional backdrop, and can be used to implement a variety
-     of UI controls including dialogs and drop downs. Multiple overlays may be displayed at once.
-     See the [demo source code](https://github.com/PolymerElements/iron-overlay-behavior/blob/master/demo/simple-overlay.html)
-     for an example.
-     @demo demo/index.html
-     @fabricBehavior Fabric.GoogleBehavior
-     */
-    Fabric.GoogleBehaviorImpl = {
-      attached: function () {
+  /**
+   Use `Polymer.GoogleBehavior` to implement an element that can be hidden or shown, and displays
+   on top of other content. It includes an optional backdrop, and can be used to implement a variety
+   of UI controls including dialogs and drop downs. Multiple overlays may be displayed at once.
+   See the [demo source code](https://github.com/PolymerElements/iron-overlay-behavior/blob/master/demo/simple-overlay.html)
+   for an example.
+   @demo demo/index.html
+   @polymerBehavior Fabric.GoogleBehavior
+   */
+  Fabric.GoogleBehaviorImpl = {
+    attached: function () {
 //        console.log("calling GoogleBehavior");
-      }
-    };
-    /** @polymerBehavior */
-    Fabric.GoogleBehavior = [Fabric.GoogleBehaviorImpl, Fabric.GoogleAnalyticsBehavior];
-  })();
+    }
+  };
+  /** @polymerBehavior */
+  Fabric.GoogleBehavior = [Fabric.GoogleBehaviorImpl, Fabric.GoogleAnalyticsBehavior];
 </script>

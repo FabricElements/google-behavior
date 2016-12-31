@@ -8,172 +8,170 @@ Provides a behaviors for format development
 -->
 
 <script>
-  (function () {
-    'use strict';
-    window.Fabric = window.Fabric || {};
+  'use strict';
+  window.Fabric = window.Fabric || {};
+
+  /**
+   Use `Fabric.GoogleAnalyticsBehavior` to implement an element that can be hidden or shown, and displays
+   on top of other content. It includes an optional backdrop, and can be used to implement a variety
+   of UI controls including dialogs and drop downs. Multiple overlays may be displayed at once.
+   See the [demo source code](https://github.com/PolymerElements/iron-overlay-behavior/blob/master/demo/simple-overlay.html)
+   for an example.
+   @demo demo/index.html
+   @polymerBehavior Fabric.GoogleAnalyticsBehavior
+   */
+  Fabric.GoogleAnalyticsBehavior = {
+    attached() {
+//        console.log("calling GoogleAnalyticsBehavior");
+    },
+
 
     /**
-     Use `Fabric.GoogleAnalyticsBehavior` to implement an element that can be hidden or shown, and displays
-     on top of other content. It includes an optional backdrop, and can be used to implement a variety
-     of UI controls including dialogs and drop downs. Multiple overlays may be displayed at once.
-     See the [demo source code](https://github.com/PolymerElements/iron-overlay-behavior/blob/master/demo/simple-overlay.html)
-     for an example.
-     @demo demo/index.html
-     @fabricBehavior Fabric.GoogleAnalyticsBehavior
+     * Global flag if Google Analytics was initialized.
+     * Although multiple elements might use this behavior, GA should be initialized
+     * only once.
+     * @type {Boolean}
      */
-    Fabric.GoogleAnalyticsBehavior = {
-      attached: function () {
-//        console.log("calling GoogleAnalyticsBehavior");
-      },
+    _gaInitialized: false,
+    get gaInitialized() {
+      return Fabric.GoogleAnalyticsBehavior._gaInitialized;
+    },
 
+    /**
+     * Create a new Google Analytics tracker
+     * <ul>
+     *   <li>Prepares for cross-domain tracking: https://developers.google.com/analytics/devguides/collection/analyticsjs/linker</li>
+     *   <li>IP addresses are anonymized: https://developers.google.com/analytics/devguides/collection/analyticsjs/ip-anonymization</li>
+     * </ul>
+     */
+    gaCreate(accountId, options = null) {
+      // Load Google Analytics code
+      (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+          }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+          m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+      })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
 
-      /**
-       * Global flag if Google Analytics was initialized.
-       * Although multiple elements might use this behavior, GA should be initialized
-       * only once.
-       * @type {Boolean}
-       */
-      _gaInitialized: false,
-      get gaInitialized() {
-        return Fabric.GoogleAnalyticsBehavior._gaInitialized;
-      },
+      Fabric.GoogleAnalyticsBehavior._gaInitialized = true;
 
-      /**
-       * Create a new Google Analytics tracker
-       * <ul>
-       *   <li>Prepares for cross-domain tracking: https://developers.google.com/analytics/devguides/collection/analyticsjs/linker</li>
-       *   <li>IP addresses are anonymized: https://developers.google.com/analytics/devguides/collection/analyticsjs/ip-anonymization</li>
-       * </ul>
-       */
-      gaCreate: function (accountId, options = null) {
-        // Load Google Analytics code
-        (function (i, s, o, g, r, a, m) {
-          i['GoogleAnalyticsObject'] = r;
-          i[r] = i[r] || function () {
-              (i[r].q = i[r].q || []).push(arguments)
-            }, i[r].l = 1 * new Date();
-          a = s.createElement(o),
-            m = s.getElementsByTagName(o)[0];
-          a.async = 1;
-          a.src = g;
-          m.parentNode.insertBefore(a, m)
-        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
-
-        Fabric.GoogleAnalyticsBehavior._gaInitialized = true;
-
-        ga('create', accountId, 'auto', options);
+      ga('create', accountId, 'auto', options);
 //        console.log("gaCreate");
-      },
+    },
 
 
-      /**
-       * Sets the domain name for cross-domain tracking
-       *
-       * @see https://developers.google.com/analytics/devguides/collection/analyticsjs/linker
-       */
-      gaSetDomainName: function (domainName) {
+    /**
+     * Sets the domain name for cross-domain tracking
+     *
+     * @see https://developers.google.com/analytics/devguides/collection/analyticsjs/linker
+     */
+    gaSetDomainName(domainName) {
 //        if (!this.gaInitialized) {
 //          throw new Error('Google Analytics is not initialized. Call first gaCreate()');
 //        }
-        ga('require', 'linker');
-        ga('linker:autoLink', [domainName]);
-      },
-      /**
-       * Set a dimension to specific value
-       *
-       * @see https://developers.google.com/analytics/devguides/collection/analyticsjs/custom-dims-mets
-       */
-      gaSetDimension: function (dimension, value) {
+      ga('require', 'linker');
+      ga('linker:autoLink', [domainName]);
+    },
+    /**
+     * Set a dimension to specific value
+     *
+     * @see https://developers.google.com/analytics/devguides/collection/analyticsjs/custom-dims-mets
+     */
+    gaSetDimension(dimension, value) {
 //        if (!this.gaInitialized) {
 //          throw new Error('Google Analytics is not initialized. Call first gaCreate()');
 //        }
-        ga('set', dimension, value);
-      },
+      ga('set', dimension, value);
+    },
 
-      gaSend: function (options) {
+    gaSend(options) {
 //        if (!this.gaInitialized) {
 //          throw new Error('Google Analytics is not initialized. Call first gaCreate()');
 //        }
-        ga('send', options);
-      },
+      ga('send', options);
+    },
 
-      /**
-       * Informs GA about the user ID of the viewer
-       *
-       * @param  {String} userId ID of the viewer
-       *
-       * @see https://developers.google.com/analytics/devguides/collection/analyticsjs/cookies-user-id
-       */
-      gaSetUserId: function (userId) {
+    /**
+     * Informs GA about the user ID of the viewer
+     *
+     * @param  {String} userId ID of the viewer
+     *
+     * @see https://developers.google.com/analytics/devguides/collection/analyticsjs/cookies-user-id
+     */
+    gaSetUserId(userId) {
 //        if (!this.gaInitialized) {
 //          throw new Error('Google Analytics is not initialized. Call first gaCreate()');
 //        }
-        ga('set', 'userId', userId);
-      },
+      ga('set', 'userId', userId);
+    },
 
-      /**
-       * Informs GA about the user ID of the viewer
-       *
-       * @param  {String} userId ID of the viewer
-       *
-       * @see https://developers.google.com/analytics/devguides/collection/analyticsjs/screens
-       */
-      gaSetAppName: function (appName) {
+    /**
+     * Informs GA about the user ID of the viewer
+     *
+     * @param  {String} userId ID of the viewer
+     *
+     * @see https://developers.google.com/analytics/devguides/collection/analyticsjs/screens
+     */
+    gaSetAppName(appName) {
 //        if (!this.gaInitialized) {
 //          throw new Error('Google Analytics is not initialized. Call first gaCreate()');
 //        }
-        ga('set', 'appName', appName);
-      },
+      ga('set', 'appName', appName);
+    },
 
-      /**
-       * Tracks a page view
-       *
-       * @see https://developers.google.com/analytics/devguides/collection/analyticsjs/linker
-       */
-      gaTrackPageView: function (url, fieldsObject = null) {
+    /**
+     * Tracks a page view
+     *
+     * @see https://developers.google.com/analytics/devguides/collection/analyticsjs/linker
+     */
+    gaTrackPageView(url, fieldsObject = null) {
 //        if (!this.gaInitialized) {
 //          throw new Error('Google Analytics is not initialized. Call first gaCreate()');
 //        }
-        ga('send', 'pageview', url, fieldsObject);
-      },
+      ga('send', 'pageview', url, fieldsObject);
+    },
 
-      /**
-       * Tracks an event
-       *
-       * @see https://developers.google.com/analytics/devguides/collection/analyticsjs/events
-       */
-      gaTrackEvent: function (eventCategory, eventAction, eventLabel = null , eventValue = null, fieldsObject = null) {
+    /**
+     * Tracks an event
+     *
+     * @see https://developers.google.com/analytics/devguides/collection/analyticsjs/events
+     */
+    gaTrackEvent(eventCategory, eventAction, eventLabel = null, eventValue = null, fieldsObject = null) {
 //        if (!this.gaInitialized) {
 //          throw new Error('Google Analytics is not initialized. Call first gaCreate()');
 //        }
-        ga('send', 'event', eventCategory, eventAction, eventLabel, eventValue, fieldsObject);
-      },
+      ga('send', 'event', eventCategory, eventAction, eventLabel, eventValue, fieldsObject);
+    },
 
-      /**
-       * Tracks Social events
-       *
-       * @see https://developers.google.com/analytics/devguides/collection/analyticsjs/social-interactions
-       */
-      gaTrackSocial: function (socialNetwork, socialAction, socialTarget, fieldsObject = null) {
+    /**
+     * Tracks Social events
+     *
+     * @see https://developers.google.com/analytics/devguides/collection/analyticsjs/social-interactions
+     */
+    gaTrackSocial(socialNetwork, socialAction, socialTarget, fieldsObject = null) {
 //        if (!this.gaInitialized) {
 //          throw new Error('Google Analytics is not initialized. Call first gaCreate()');
 //        }
-        ga('send', 'social', socialNetwork, socialAction, socialTarget, fieldsObject);
-      },
+      ga('send', 'social', socialNetwork, socialAction, socialTarget, fieldsObject);
+    },
 
 
-      /**
-       * Tracks a page view
-       *
-       * @see https://developers.google.com/analytics/devguides/collection/analyticsjs/screens
-       */
-      gaScreenView: function (fieldsObject = null) {
+    /**
+     * Tracks a page view
+     *
+     * @see https://developers.google.com/analytics/devguides/collection/analyticsjs/screens
+     */
+    gaScreenView(fieldsObject = null) {
 //        if (!this.gaInitialized) {
 //          throw new Error('Google Analytics is not initialized. Call first gaCreate()');
 //        }
-        ga('send', 'screenview', fieldsObject);
-      },
+      ga('send', 'screenview', fieldsObject);
+    },
 
-    };
-  })();
+  };
 </script>
